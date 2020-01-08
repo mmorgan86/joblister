@@ -14,46 +14,22 @@ echo "
             </div>
         </div>
 
-        <div class='container'>
-            <!-- Example row of columns -->
-            <div class='row marketing'>
-                <div class='col-md-10'>
-                    <h2>Heading</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                </div>
-                <div class='col-md-2'>
-                    <a href='#' class='btn btn-outline-dark'>View</a>
-                </div>
-            </div>
-            <div class='row marketing'>
-                <div class='col-md-10'>
-                    <h2>Heading</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                </div>
-                <div class='col-md-2'>
-                    <a href='#' class='btn btn-outline-dark'>View</a>
-                </div>
-            </div>
-            <div class='row marketing'>
-                <div class='col-md-10'>
-                    <h2>Heading</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                </div>
-                <div class='col-md-2'>
-                    <a href='#' class='btn btn-outline-dark'>View</a>
-                </div>
-            </div>
-            <div class='row marketing'>
-                <div class='col-md-10'>
-                    <h2>Heading</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                </div>
-                <div class='col-md-2'>
-                    <a href='#' class='btn btn-outline-dark'>View</a>
-                </div>
-            </div>
-        <hr>
-        </div> <!-- /container -->
+        <div class='container'>";
+
+            foreach($jobs as $job) {
+                echo
+                    "<div class='row marketing'>
+                        <div class='col-md-10'>
+                            <h4>{$job->job_title}</h4>
+                            <p>{$job->description}</p>
+                        </div>
+                        <div class='col-md-2'>
+                            <a href='#' class='btn btn-outline-dark'>View</a>
+                        </div>
+                    </div>
+                    <hr>";
+            }
+        echo "</div> <!-- /container -->
 </main>
 ";
 include('inc/footer.php');
