@@ -6,16 +6,36 @@ echo "
     <main role='main'>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-        <div class='jumbotron'>
-            <div class='container'>
-                <h1 class='display-3'>Hello, world!</h1>
-                <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-                 <p><a class='btn btn-primary btn-lg' href='#' role='button'>Learn more »</a></p>
+        <div class='container'>
+            <div class='jumbotron'>
+                <h1 class='display-3'>Find A Job</h1>
+                <form action='index.php' method='GET'>
+                    <div class='form-group'>
+                        <label for='job_search'>Search</label>
+                        <input type='text' name='job_search' placeholder='Enter a job' class='form-control'>
+                    </div>
+                    <div class='form-group'>
+                        <label for='location_search'>Location</label>
+                        <input type='text' name='location_search' placeholder='Enter a city and state' class='form-control'>
+                    </div>
+                    <select name='category' class='form-control'>
+                        <option value='0'>Choose Category</option>";
+                        foreach($categories as $category) {
+                            echo "
+                                  <option value='$category->id'>$category->name</option>";
+                        }
+                    echo
+                        "
+                    </select>
+                    <br>
+                    <input type='submit' class='btn btn-lg btn-success' value='FIND'>
+                </form>    
             </div>
         </div>
 
-        <div class='container'>";
-
+        <div class='container'>
+            <h3>{$title}</h3>
+            <hr>";
             foreach($jobs as $job) {
                 echo
                     "<div class='row marketing'>
@@ -24,7 +44,7 @@ echo "
                             <p>{$job->description}</p>
                         </div>
                         <div class='col-md-2'>
-                            <a href='#' class='btn btn-outline-dark'>View</a>
+                            <a href='job.php?id={$job->id}' class='btn btn-outline-dark'>View</a>
                         </div>
                     </div>
                     <hr>";

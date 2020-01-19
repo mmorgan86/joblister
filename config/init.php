@@ -1,6 +1,12 @@
 <?php
+// start session
+session_start();
+
 // config file
 require_once 'config.php';
+
+// include helper file
+require_once 'helpers/system_helper.php';
 
 // Autoloader
 function __autoload($class_name) {

@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -15,7 +14,7 @@
 
 <div class="container">
     <div class="header clearfix">
-        <nav class='navbar navbar-expand-md navbar-dark fixed-top bg-dark'>
+        <nav class='navbar navbar-expand-md navbar-dark bg-dark d-flex'>
             <a class='navbar-brand' href='#'><?php echo SITE_TITLE ?></a>
             <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarItems'
                     aria-controls='navbarItems' aria-expanded='false' aria-label='Toggle navigation'>
@@ -30,8 +29,30 @@
                     <li class='nav-item'>
                         <a class='nav-link' href='create.php'>Create Listing</a>
                     </li>
+                    <li>
+                        <?php if(isset($_SESSION['user_id'])){
+                            echo "<p>{$_SESSION['username']}</p>
+                                </li>
+                                <li>
+                                    <a class='nav-link' href='user-jobs.php?user_id={$_SESSION['user_id']}'>My Jobs</a>
+                                </li>
+                                <li>
+                                    <a class='nav-link' href='index.php?action=logout&user_id={$_SESSION['user_id']}'>Log Out</a>
+                                </li>";
+                        } else {
+                            echo "<a class='nav-link' href=\"user-login.php\">Login</a>
+                                </li>
+                                <li>
+                                    <a class='nav-link' href=\"user-create.php\">Create User</a>
+                                </li>";
+                        }
+                        ?>
                 </ul>
             </div>
         </nav>
     </div>
+</div>
+
+<div class="container">
+    <?php displayMessage(); ?>
 </div>
