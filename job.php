@@ -18,5 +18,8 @@ $template = new Template('templates/job-single.php');
 $job_id = isset($_GET['id']) ? $_GET['id'] : null;
 
 $template->job = $job->getJob($job_id);
-$template->userOwnsJob = $job->userOwnsJob($_SESSION['user_id'], $job_id);
+
+if(isset($_SESSION['user_id'])) {
+    $template->userOwnsJob = $job->userOwnsJob($_SESSION['user_id'], $job_id);
+}
 echo $template;

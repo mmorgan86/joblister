@@ -6,18 +6,18 @@ $user = new User;
 if(isset($_POST['create_user'])) {
     $data = $errors = [];
 
-    $data['name'] = $_POST['name'];
-    $data['username'] = $_POST['username'];
-    $data['password'] = $_POST['password'];
-    $data['c_password'] = $_POST['c_password'];
-    $data['email'] = $_POST['email'];
+    $data['name'] = trim($_POST['name']);
+    $data['username'] = trim($_POST['username']);
+    $data['password'] = trim($_POST['password']);
+    $data['c_password'] = trim($_POST['c_password']);
+    $data['email'] = trim($_POST['email']);
 
-
-    if ($data['password'] != $data['c_password']) {
-        $errors[] = 'Passwords did not match';
-    }
-    if (!$user->createUser($data)) {
-        $errors[] = 'Something went wrong. Unable to create user';
+    if ($user->createUser($data) != 1) {
+        $found_errors = $user->createUser($data);
+        foreach($found_errors as $error) {
+            $errors[] = $error;
+        }
+//        $errors[] = 'Something went wrong. Unable to create user';
     }
 
     if(count($errors)) {

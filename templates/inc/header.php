@@ -31,7 +31,7 @@
                     </li>
                     <li>
                         <?php if(isset($_SESSION['user_id'])){
-                            echo "<p>{$_SESSION['username']}</p>
+                            echo "<p>". htmlspecialchars($_SESSION['username']) . "</p>
                                 </li>
                                 <li>
                                     <a class='nav-link' href='user-jobs.php?user_id={$_SESSION['user_id']}'>My Jobs</a>

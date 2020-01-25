@@ -25,7 +25,7 @@ echo "
         "<a href='index.php' class='btn btn-outline-success'>Go Back</a>",
         "<br><br>";
 
-        if($userOwnsJob) {
+        if(isset($userOwnsJob)) {
                 echo "
                 <div class='card card-body bg-light'>
                     <a href='edit.php?id={$job->id}' class='btn btn-success'>Edit</a>

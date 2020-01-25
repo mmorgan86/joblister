@@ -11,7 +11,47 @@ class User {
     // create user
     public function createUser($data)
     {
-        if($data['password'] == $data['c_password']) {
+        $errors = [];
+
+        // validate username
+        if(empty(trim($data['username']))) {
+            return $errors['username'] = 'Please enter a username';
+        } else {
+            $this->db->query("SELECT username FROM users WHERE username = :username");
+            // bind
+            $this->db->bind(':username', $data['username']);
+
+            // execute
+            if($this->db->resultSet()) {
+                $errors['username'] = 'This username is already taken!';
+            } else {
+                $username = trim($data['username']);
+            }
+        }
+
+        // validate password
+        if(empty(trim($data['password']))) {
+            $errors['password'] = 'Please enter a password';
+        } else if (strlen(trim($data['password'])) < 6) {
+            $errors['password'] = 'Password field must be at least 6 characters long';
+        } else {
+            $password = trim($data['password']);
+        }
+
+        // validate confirm password
+        if(empty(trim($data['c_password']))) {
+            $errors['c_password'] = 'Please confirm password';
+        } else {
+            $confirm_password = trim($data['c_password']);
+            if($password != $confirm_password) {
+                $errors['password'] = 'Passwords did not match!';
+            }
+        }
+
+        if(count($errors) == 0) {
+            // hash password
+            $password = password_hash($password, PASSWORD_DEFAULT);
+
             $this->db->query("
             INSERT INTO users (name, username, password, email)
             VALUES (:name, :username, :password, :email)
@@ -19,8 +59,8 @@ class User {
 
             // Bind Data
             $this->db->bind(':name', $data['name']);
-            $this->db->bind(':username', $data['username']);
-            $this->db->bind(':password', $data['password']);
+            $this->db->bind(':username', $username);
+            $this->db->bind(':password', $password);
             $this->db->bind(':email', $data['email']);
 
             // executed
@@ -30,7 +70,7 @@ class User {
                 return false;
             }
         }
-        return false;
+        return $errors;
     }
     // edit user
 
@@ -61,18 +101,30 @@ class User {
     // check user login user/password
     public function checkLogin($username, $password)
     {
+        // get current hashed password from db
         $this->db->query("
-            SELECT id FROM users WHERE username = :username AND password = :password
+            SELECT password FROM users WHERE username = :username
         ");
+        
+        $this->db->bind(':username', $username);
+
+        $hashed_password = $this->db->single()->password;
 
         // verify password
+        if(password_verify($password, $hashed_password)) {
+            $this->db->query("
+                SELECT id, username FROM users WHERE username = :username
+            ");
 
-        // bind
-        $this->db->bind(':username', $username);
-        $this->db->bind(':password', $password);
+            // bind
+            $this->db->bind(':username', $username);
+            
+            // results
+            return $this->db->single();
 
-        // executed
-        return $this->db->single();
+        }
+
+        return false;
     }
 
     // logout user

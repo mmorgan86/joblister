@@ -44,6 +44,7 @@ echo "
                             <p>{$job->description}</p>
                         </div>
                         <div class='col-md-2'>
+                            <p>". date('h:i:s n-d-Y' , strtotime($job->post_date)) ."</p>
                             <a href='job.php?id={$job->id}' class='btn btn-outline-dark'>View</a>
                         </div>
                     </div>
